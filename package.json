@@ -9,9 +9,9 @@
 		"dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/http/server.ts",
 		"test": "jest --passWithNoTests --silent --noStackTrace --runInBand --no-cache",
 		"test:verbose": "jest --passWithNoTests --runInBand",
-		"test:unit": "yarn test -- --watch",
-		"test:staged": "yarn test -- --findRelatedTests",
-		"test:ci": "yarn test -- --coverage"
+		"test:unit": "yarn test --watch",
+		"test:staged": "yarn test --findRelatedTests",
+		"test:ci": "yarn test --coverage"
 	},
 	"keywords": [],
 	"author": "Bruno Guirra",
