@@ -1,0 +1,28 @@
+{
+  "name": "xo-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "xo"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^28.1.1",
+    "jest": "^28.1.1",
+    "ts-jest": "^28.0.5",
+    "typescript": "^4.7.3",
+    "xo": "^0.50.0"
+  },
+  "xo": {
+    "semicolon": false,
+    "prettier": true,
+    "envs": [
+      "es2021",
+      "node",
+      "jest"
+    ]
+  }
+}
