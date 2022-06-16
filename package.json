@@ -5,7 +5,6 @@
 	"main": "index.js",
 	"scripts": {
 		"prepare": "husky install",
-		"rep": "npx xo --reporter",
 		"dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/http/server.ts",
 		"orm": "ts-node-dev ./node_modules/typeorm/cli.js",
 		"orm:create": "orm migration:create -n",
