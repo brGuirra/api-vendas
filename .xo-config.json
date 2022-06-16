@@ -1,18 +1,25 @@
 {
-	"semicolon": false,
-	"prettier": true,
-	"envs": ["es2021", "node", "jest"],
-	"ignore": ["jest.config.js"],
-	"rules": {
-		"import/extensions": [
-			"error",
-			"ignorePackages",
-			{
-				"js": "never",
-				"ts": "never"
-			}
-		],
-		"new-cap": "off",
-		"no-console": "warn"
-	}
+  "semicolon": false,
+  "prettier": true,
+  "envs": [
+    "es2021",
+    "node",
+    "jest"
+  ],
+  "ignore": [
+    "jest.config.js"
+  ],
+  "webpack": false,
+  "rules": {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "ts": "never"
+      }
+    ],
+    "new-cap": "off",
+    "no-console": "warn"
+  }
 }
