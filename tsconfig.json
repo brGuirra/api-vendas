@@ -2,6 +2,7 @@
 	"compilerOptions": {
 		"outDir": "dist",
 		"module": "commonjs",
+    "lib": ["es6"],
 		"target": "es2019",
 		"esModuleInterop": true,
 		"sourceMap": true,
@@ -11,7 +12,9 @@
 			"@config/*": ["src/config/*"],
 			"@modules/*": ["src/modules/*"],
 			"@shared/*": ["src/shared/*"]
-		}
+		},
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
 	},
 	"include": ["src", "tests"],
 	"exclude": []

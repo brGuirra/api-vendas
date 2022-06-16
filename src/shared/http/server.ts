@@ -1,3 +1,6 @@
+import 'reflect-metadata'
+import '@shared/typeorm'
+
 import express, { NextFunction, Request, Response } from 'express'
 
 import { AppError } from '@shared/errors/app-error'
