@@ -11,6 +11,7 @@
 				"js": "never",
 				"ts": "never"
 			}
-		]
+		],
+		"new-cap": "off"
 	}
 }
