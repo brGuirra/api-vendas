@@ -6,7 +6,12 @@
 		"esModuleInterop": true,
 		"sourceMap": true,
 		"rootDirs": ["src", "tests"],
-		"baseUrl": "./"
+		"baseUrl": "./",
+		"paths": {
+			"@config/*": ["src/config/*"],
+			"@modules/*": ["src/modules/*"],
+			"@shared/*": ["src/shared/*"]
+		}
 	},
 	"include": ["src", "tests"],
 	"exclude": []
