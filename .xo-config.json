@@ -1,0 +1,15 @@
+{
+  "semicolon": false,
+  "prettier": true,
+  "envs": ["es2021", "node", "jest"],
+  "rules": {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "ts": "never"
+      }
+    ]
+  }
+}
