@@ -40,5 +40,11 @@
 		"pg": "^8.7.3",
 		"reflect-metadata": "^0.1.13",
 		"typeorm": "0.2.29"
-	}
+	},
+  "importSort": {
+  ".ts": {
+    "parser": "typescript",
+    "style": "eslint"
+  }
+}
 }
