@@ -21,6 +21,14 @@
       }
     ],
     "new-cap": "off",
-    "no-console": "warn"
+    "no-console": "warn",
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "interface",
+        "format": ["StrictPascalCase"],
+        "prefix": ["I"]
+      }
+    ]
   }
 }
