@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { CreateProduct } from '../services/create-product'
+import { DeleteProduct } from '../services/delete-product'
 import { ListProducts } from '../services/list-products'
 import { ShowProduct } from '../services/show-product'
 import { UpdateProduct } from '../services/update-product'
@@ -58,5 +59,18 @@ export class ProductsController {
 		const product = await updateProduct.execute({ id, name, price, quantity })
 
 		return response.json(product)
+	}
+
+	public async delete(
+		request: Request<{ id: string }>,
+		response: Response
+	): Promise<Response> {
+		const { id } = request.params
+
+		const deleteProduct = new DeleteProduct()
+
+		await deleteProduct.execute({ id })
+
+		return response.json({ message: `Product ${id} deleted` })
 	}
 }
