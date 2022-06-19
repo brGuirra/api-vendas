@@ -2,8 +2,9 @@ import { Request, Response } from 'express'
 import { CreateProduct } from '../services/create-product'
 import { ListProducts } from '../services/list-products'
 import { ShowProduct } from '../services/show-product'
+import { UpdateProduct } from '../services/update-product'
 
-interface ICreateProductRequest {
+interface IProductRequest {
 	name: string
 	price: number
 	quantity: number
@@ -32,7 +33,7 @@ export class ProductsController {
 		request: Request<
 			Record<string, unknown>,
 			Record<string, unknown>,
-			ICreateProductRequest
+			IProductRequest
 		>,
 		response: Response
 	): Promise<Response> {
@@ -41,6 +42,20 @@ export class ProductsController {
 		const createProduct = new CreateProduct()
 
 		const product = await createProduct.execute({ name, price, quantity })
+
+		return response.json(product)
+	}
+
+	public async update(
+		request: Request<{ id: string }, Record<string, unknown>, IProductRequest>,
+		response: Response
+	): Promise<Response> {
+		const { name, price, quantity } = request.body
+		const { id } = request.params
+
+		const updateProduct = new UpdateProduct()
+
+		const product = await updateProduct.execute({ id, name, price, quantity })
 
 		return response.json(product)
 	}
