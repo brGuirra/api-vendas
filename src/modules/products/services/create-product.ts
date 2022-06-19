@@ -3,14 +3,18 @@ import { getCustomRepository } from 'typeorm'
 import { Product } from '../typeorm/entities/product'
 import { ProductsRepository } from '../typeorm/repositories/product-repository'
 
-interface IProduct {
+interface ICreateProduct {
 	name: string
 	price: number
 	quantity: number
 }
 
 export class CreateProduct {
-	public async execute({ name, price, quantity }: IProduct): Promise<Product> {
+	public async execute({
+		name,
+		price,
+		quantity,
+	}: ICreateProduct): Promise<Product> {
 		const productsRepository = getCustomRepository(ProductsRepository)
 		const productAlreadyExists = await productsRepository.findByName(name)
 
