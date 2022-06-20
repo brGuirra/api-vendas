@@ -1,5 +1,6 @@
 import 'reflect-metadata'
 import '@shared/typeorm'
+import 'express-async-errors'
 
 import express, { NextFunction, Request, Response } from 'express'
 
