@@ -1,34 +1,28 @@
 {
-  "semicolon": false,
-  "prettier": true,
-  "envs": [
-    "es2021",
-    "node",
-    "jest"
-  ],
-  "ignore": [
-    "jest.config.js"
-  ],
-  "webpack": false,
-  "rules": {
-    "import/no-unassigned-import": "off",
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "js": "never",
-        "ts": "never"
-      }
-    ],
-    "new-cap": "off",
-    "no-console": "warn",
-    "@typescript-eslint/naming-convention": [
-      "error",
-      {
-        "selector": "interface",
-        "format": ["StrictPascalCase"],
-        "prefix": ["I"]
-      }
-    ]
-  }
+	"semicolon": false,
+	"prettier": true,
+	"envs": ["es2021", "node", "jest"],
+	"ignore": ["jest.config.js"],
+	"webpack": false,
+	"rules": {
+		"import/no-unassigned-import": "off",
+		"import/extensions": [
+			"error",
+			"ignorePackages",
+			{
+				"js": "never",
+				"ts": "never"
+			}
+		],
+		"new-cap": "off",
+		"no-console": "warn",
+		"@typescript-eslint/naming-convention": [
+			"error",
+			{
+				"selector": "interface",
+				"format": ["StrictPascalCase"],
+				"prefix": ["I"]
+			}
+		]
+	}
 }
