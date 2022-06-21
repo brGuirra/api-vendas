@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { celebrate, Joi, Segments } from 'celebrate'
 import { UsersController } from '../controllers/users-controller'
-import { authenticationMiddelware } from '../middlewares/authentication-middleware'
+import { authenticationMiddelware } from '../../../shared/http/middlewares/authentication-middleware'
 
 export const usersRouter = Router()
 const usersController = new UsersController()
