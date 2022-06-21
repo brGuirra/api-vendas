@@ -2,7 +2,7 @@
 	"semicolon": false,
 	"prettier": true,
 	"envs": ["es2021", "node", "jest"],
-	"ignore": ["jest.config.js"],
+	"ignore": ["jest.config.js", "src/@types/**"],
 	"webpack": false,
 	"rules": {
 		"import/no-unassigned-import": "off",
