@@ -1,6 +1,6 @@
 import { AppError } from '@shared/errors/app-error'
 import { getCustomRepository } from 'typeorm'
-import { ProductsRepository } from '../typeorm/repositories/product-repository'
+import { ProductsRepository } from '../typeorm/repositories/products-repository'
 
 interface IDeleteProduct {
 	id: string
