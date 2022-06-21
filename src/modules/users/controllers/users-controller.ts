@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { CreateUser } from '../services/create-user'
-import { ListUsers } from '../services/list-users'
+import { CreateUserService } from '../services/create-user-service'
+import { ListUsersService } from '../services/list-users-service'
 
 interface IUserRequest {
 	name: string
@@ -10,8 +10,8 @@ interface IUserRequest {
 
 export class UsersController {
 	public async index(request: Request, response: Response): Promise<Response> {
-		const listUsers = new ListUsers()
-		const users = await listUsers.execute()
+		const listUsersService = new ListUsersService()
+		const users = await listUsersService.execute()
 
 		return response.json(users)
 	}
@@ -25,8 +25,8 @@ export class UsersController {
 		response: Response
 	): Promise<Response> {
 		const { name, email, password } = request.body
-		const createUser = new CreateUser()
-		const user = await createUser.execute({ name, email, password })
+		const createUserService = new CreateUserService()
+		const user = await createUserService.execute({ name, email, password })
 
 		return response.json(user)
 	}

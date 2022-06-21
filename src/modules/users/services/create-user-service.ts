@@ -9,7 +9,7 @@ interface ICreateUser {
 	password: string
 }
 
-export class CreateUser {
+export class CreateUserService {
 	public async execute({ name, email, password }: ICreateUser): Promise<User> {
 		const usersRepository = getCustomRepository(UsersRepository)
 		const emailAlreadyExists = await usersRepository.findByEmail(email)

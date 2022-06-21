@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
-import { CreateProduct } from '../services/create-product'
-import { DeleteProduct } from '../services/delete-product'
-import { ListProducts } from '../services/list-products'
-import { ShowProduct } from '../services/show-product'
-import { UpdateProduct } from '../services/update-product'
+import { CreateProductService } from '../services/create-product-service'
+import { DeleteProductService } from '../services/delete-product-service'
+import { ListProductsService } from '../services/list-products-service'
+import { ShowProductService } from '../services/show-product-service'
+import { UpdateProductService } from '../services/update-product-service'
 
 interface IProductRequest {
 	name: string
@@ -13,9 +13,9 @@ interface IProductRequest {
 
 export class ProductsController {
 	public async index(request: Request, response: Response): Promise<Response> {
-		const listProducts = new ListProducts()
+		const listProductsService = new ListProductsService()
 
-		const products = await listProducts.execute()
+		const products = await listProductsService.execute()
 
 		return response.json(products)
 	}
@@ -23,9 +23,9 @@ export class ProductsController {
 	public async show(request: Request, response: Response): Promise<Response> {
 		const { id } = request.params
 
-		const showProduct = new ShowProduct()
+		const showProductService = new ShowProductService()
 
-		const product = await showProduct.execute({ id })
+		const product = await showProductService.execute({ id })
 
 		return response.json(product)
 	}
@@ -40,9 +40,13 @@ export class ProductsController {
 	): Promise<Response> {
 		const { name, price, quantity } = request.body
 
-		const createProduct = new CreateProduct()
+		const createProductService = new CreateProductService()
 
-		const product = await createProduct.execute({ name, price, quantity })
+		const product = await createProductService.execute({
+			name,
+			price,
+			quantity,
+		})
 
 		return response.json(product)
 	}
@@ -54,9 +58,14 @@ export class ProductsController {
 		const { name, price, quantity } = request.body
 		const { id } = request.params
 
-		const updateProduct = new UpdateProduct()
+		const updateProductService = new UpdateProductService()
 
-		const product = await updateProduct.execute({ id, name, price, quantity })
+		const product = await updateProductService.execute({
+			id,
+			name,
+			price,
+			quantity,
+		})
 
 		return response.json(product)
 	}
@@ -67,9 +76,9 @@ export class ProductsController {
 	): Promise<Response> {
 		const { id } = request.params
 
-		const deleteProduct = new DeleteProduct()
+		const deleteProductService = new DeleteProductService()
 
-		await deleteProduct.execute({ id })
+		await deleteProductService.execute({ id })
 
 		return response.json({ message: `Product ${id} deleted` })
 	}

@@ -3,7 +3,7 @@ import { getCustomRepository } from 'typeorm'
 import { User } from '../typeorm/entities/user'
 import { UsersRepository } from '../typeorm/repositories/users-repository'
 
-export class ListUsers {
+export class ListUsersService {
 	public async execute(): Promise<User[]> {
 		const usersRepository = getCustomRepository(UsersRepository)
 

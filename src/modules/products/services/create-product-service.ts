@@ -3,37 +3,30 @@ import { getCustomRepository } from 'typeorm'
 import { Product } from '../typeorm/entities/product'
 import { ProductsRepository } from '../typeorm/repositories/products-repository'
 
-interface IUpdateProduct {
-	id: string
+interface ICreateProduct {
 	name: string
 	price: number
 	quantity: number
 }
 
-export class UpdateProduct {
+export class CreateProductService {
 	public async execute({
-		id,
 		name,
 		price,
 		quantity,
-	}: IUpdateProduct): Promise<Product> {
+	}: ICreateProduct): Promise<Product> {
 		const productsRepository = getCustomRepository(ProductsRepository)
-
-		const product = await productsRepository.findOne(id)
-
-		if (!product) {
-			throw new AppError(`Product ${id} not found`)
-		}
-
 		const productAlreadyExists = await productsRepository.findByName(name)
 
-		if (productAlreadyExists && name !== product.name) {
+		if (productAlreadyExists) {
 			throw new AppError(`Product ${name} already exists`)
 		}
 
-		product.name = name
-		product.price = price
-		product.quantity = quantity
+		const product = productsRepository.create({
+			name,
+			price,
+			quantity,
+		})
 
 		await productsRepository.save(product)
 

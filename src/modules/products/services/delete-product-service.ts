@@ -6,7 +6,7 @@ interface IDeleteProduct {
 	id: string
 }
 
-export class DeleteProduct {
+export class DeleteProductService {
 	public async execute({ id }: IDeleteProduct): Promise<void> {
 		const productsRepository = getCustomRepository(ProductsRepository)
 

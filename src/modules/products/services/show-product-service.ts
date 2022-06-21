@@ -7,7 +7,7 @@ interface IShowProduct {
 	id: string
 }
 
-export class ShowProduct {
+export class ShowProductService {
 	public async execute({ id }: IShowProduct): Promise<Product> {
 		const productsRepository = getCustomRepository(ProductsRepository)
 

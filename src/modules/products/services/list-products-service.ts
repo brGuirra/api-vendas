@@ -3,7 +3,7 @@ import { getCustomRepository } from 'typeorm'
 import { Product } from '../typeorm/entities/product'
 import { ProductsRepository } from '../typeorm/repositories/products-repository'
 
-export class ListProducts {
+export class ListProductsService {
 	public async execute(): Promise<Product[]> {
 		const productsRepository = getCustomRepository(ProductsRepository)
 
