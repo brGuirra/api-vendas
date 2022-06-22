@@ -5,6 +5,7 @@
 	"ignore": ["jest.config.js", "src/@types/**"],
 	"webpack": false,
 	"rules": {
+		"unicorn/no-thenable": "off",
 		"import/no-unassigned-import": "off",
 		"import/extensions": [
 			"error",
