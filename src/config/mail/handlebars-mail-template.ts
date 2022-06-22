@@ -1,20 +1,18 @@
+import fs from 'node:fs/promises'
 import handlebars from 'handlebars'
 
 export type TemplateVariableProps = Record<string, string | number>
 
 export interface IParseMailTemplate {
-	template: string
+	file: string
 	variables: TemplateVariableProps
 }
 
 export class HandlebarsMailTemplate {
-	public async parse({
-		template,
-		variables,
-	}: IParseMailTemplate): Promise<string> {
-		const parseTemplate = handlebars.compile(template)
-		console.log(template)
-		console.log(variables)
+	public async parse({ file, variables }: IParseMailTemplate): Promise<string> {
+		const templateFileContent = await fs.readFile(file, 'utf8')
+
+		const parseTemplate = handlebars.compile(templateFileContent)
 
 		return parseTemplate(variables)
 	}

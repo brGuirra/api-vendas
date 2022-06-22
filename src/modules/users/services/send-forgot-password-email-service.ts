@@ -1,3 +1,4 @@
+import path from 'node:path'
 import { EtherealMail } from '@config/mail/ethereal-mail'
 import { AppError } from '@shared/errors/app-error'
 import { getCustomRepository } from 'typeorm'
@@ -18,16 +19,23 @@ export class SendForgotPasswordEmailService {
 			throw new AppError('User does not exist')
 		}
 
-		const userToken = await userTokensRepository.generate(user.id)
+		const { token } = await userTokensRepository.generate(user.id)
+		const forgotPasswordTemplate = path.resolve(
+			'src',
+			'modules',
+			'users',
+			'views',
+			'forgot-password.hbs'
+		)
 
 		await EtherealMail.sendMail({
 			to: { name: user.name, email: user.email },
 			subject: '[API Vendas] Recuperação de senha',
 			templateData: {
-				template: `Olá {{name}}: {{token}}`,
+				file: forgotPasswordTemplate,
 				variables: {
 					name: user.name,
-					token: userToken.token,
+					link: `http://localhost:3000/reset-password?token=${token}`,
 				},
 			},
 		})
