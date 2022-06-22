@@ -1,10 +1,15 @@
 import { Router } from 'express'
 import { celebrate, Joi, Segments } from 'celebrate'
+import multer from 'multer'
+import { uploadConfig } from '@config/upload'
 import { UsersController } from '../controllers/users-controller'
 import { authenticationMiddelware } from '../../../shared/http/middlewares/authentication-middleware'
+import { UserAvatarController } from '../controllers/user-avatar-controller'
 
 export const usersRouter = Router()
 const usersController = new UsersController()
+const userAvatarController = new UserAvatarController()
+const upload = multer(uploadConfig)
 
 usersRouter.get('/', authenticationMiddelware, usersController.index)
 
@@ -18,4 +23,11 @@ usersRouter.post(
 		},
 	}),
 	usersController.create
+)
+
+usersRouter.patch(
+	'/avatar',
+	authenticationMiddelware,
+	upload.single('avatar'),
+	userAvatarController.update
 )
