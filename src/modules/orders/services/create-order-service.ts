@@ -10,7 +10,7 @@ interface IProduct {
 	quantity: number
 }
 
-interface ICreateOrder {
+export interface ICreateOrder {
 	customer_id: string
 	products: IProduct[]
 }
