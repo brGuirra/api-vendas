@@ -3,14 +3,13 @@ import { getCustomRepository } from 'typeorm'
 import { Customer } from '../typeorm/entities/customer'
 import { CustomersRepository } from '../typeorm/repositories/customers-repository'
 
-interface ICreateUser {
+interface ICreateCustomer {
 	name: string
 	email: string
-	password: string
 }
 
 export class CreateCustomerService {
-	public async execute({ name, email }: ICreateUser): Promise<Customer> {
+	public async execute({ name, email }: ICreateCustomer): Promise<Customer> {
 		const customersRepository = getCustomRepository(CustomersRepository)
 		const emailAlreadyExists = await customersRepository.findByEmail(email)
 
