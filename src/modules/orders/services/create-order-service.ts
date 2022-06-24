@@ -39,6 +39,7 @@ export class CreateOrderService {
 		const existingProductsIds = new Set(
 			existingProducts.map(product => product.id)
 		)
+
 		const inexistingProducts = products.filter(
 			product => !existingProductsIds.has(product.id)
 		)
@@ -46,25 +47,22 @@ export class CreateOrderService {
 		if (inexistingProducts.length > 0) {
 			throw new AppError(
 				`Products not found:\n
-          ${inexistingProducts.map(product => `id - ${product.id}\n`).join('')}`
+			    ${inexistingProducts.map(product => `id - ${product.id}\n`).join('')}`
 			)
 		}
 
 		const quantityAvailable = products.filter(
 			product =>
-				existingProducts.find(p => p.id === product.id)[0].quantity <
+				existingProducts.find(p => p.id === product.id).quantity <
 				product.quantity
 		)
 
 		if (quantityAvailable.length > 0) {
 			throw new AppError(
-				`Out of stock:\n
-          ${quantityAvailable
-						.map(
-							product =>
-								`The quantity ${product.quantity} is not available for the product ${product.id}\n`
-						)
-						.join('')}`
+				`Out of stock:
+        ${quantityAvailable
+					.map(product => `Item ${product.id} do not have enough quantity`)
+					.join('')}`
 			)
 		}
 
@@ -82,11 +80,13 @@ export class CreateOrderService {
 		const { order_products } = order
 
 		const updatedProductQuantity = order_products.map(product => ({
-			id: product.id,
+			id: product.product_id,
 			quantity:
-				existingProducts.find(p => p.id === product.id).quantity -
+				existingProducts.find(p => p.id === product.product_id).quantity -
 				product.quantity,
 		}))
+
+		console.log(updatedProductQuantity)
 
 		await productsRepository.save(updatedProductQuantity)
 
