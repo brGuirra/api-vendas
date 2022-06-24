@@ -1,4 +1,5 @@
-import { OrdersProducts } from '@modules/orders/typeorm/entities/orders-products'
+/* eslint import/no-cycle: 0 */
+
 import {
 	Column,
 	CreateDateColumn,
@@ -7,11 +8,15 @@ import {
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm'
+import { OrdersProducts } from '../../../orders/typeorm/entities/orders-products'
 
 @Entity('products')
 export class Product {
 	@PrimaryGeneratedColumn('uuid')
 	id: string
+
+	@OneToMany(() => OrdersProducts, order_products => order_products.product)
+	order_products: OrdersProducts[]
 
 	@Column()
 	name: string
@@ -21,9 +26,6 @@ export class Product {
 
 	@Column('int')
 	quantity: number
-
-	@OneToMany(() => OrdersProducts, order_products => order_products.product)
-	order_products: OrdersProducts[]
 
 	@CreateDateColumn()
 	created_at: Date
