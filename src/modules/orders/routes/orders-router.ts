@@ -1,9 +1,12 @@
+import { authenticationMiddelware } from '@shared/http/middlewares/authentication-middleware'
 import { Joi, Segments, celebrate } from 'celebrate'
 import { Router } from 'express'
 import { OrdersController } from '../controllers/orders-controller'
 
 export const ordersRouter = Router()
 const ordersController = new OrdersController()
+
+ordersRouter.use(authenticationMiddelware)
 
 ordersRouter.get(
 	'/:id',
