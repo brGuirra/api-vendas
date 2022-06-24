@@ -1,4 +1,6 @@
 import { Request, Response } from 'express'
+import { instanceToInstance } from 'class-transformer'
+
 import { CreateUserService } from '../services/create-user-service'
 import { ListUsersService } from '../services/list-users-service'
 
@@ -13,7 +15,7 @@ export class UsersController {
 		const listUsersService = new ListUsersService()
 		const users = await listUsersService.execute()
 
-		return response.json(users)
+		return response.json(instanceToInstance(users))
 	}
 
 	public async create(
@@ -28,6 +30,6 @@ export class UsersController {
 		const createUserService = new CreateUserService()
 		const user = await createUserService.execute({ name, email, password })
 
-		return response.json(user)
+		return response.json(instanceToInstance(user))
 	}
 }
