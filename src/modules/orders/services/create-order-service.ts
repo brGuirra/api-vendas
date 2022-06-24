@@ -86,8 +86,6 @@ export class CreateOrderService {
 				product.quantity,
 		}))
 
-		console.log(updatedProductQuantity)
-
 		await productsRepository.save(updatedProductQuantity)
 
 		return ordersRepository.save(order)
