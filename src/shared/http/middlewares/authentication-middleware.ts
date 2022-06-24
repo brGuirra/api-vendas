@@ -18,7 +18,7 @@ export const authenticationMiddelware = (
 
 	try {
 		const decodedToken = verify(token, authConfig.jwt.secret)
-		const id = decodedToken.sub as string
+		const id = String(decodedToken.sub)
 		request.user = { id }
 
 		next()
