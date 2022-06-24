@@ -17,7 +17,7 @@ interface ICreateOrderRequest {
 export class OrdersRepository extends Repository<Order> {
 	public async findById(id: string): Promise<Order> {
 		return this.findOne(id, {
-			relations: ['customer', 'order_products'],
+			relations: ['order_products', 'customer'],
 		})
 	}
 
