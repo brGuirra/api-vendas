@@ -1,3 +1,4 @@
+import { RedisCache } from '@shared/cache/redis-cache'
 import { AppError } from '@shared/errors/app-error'
 import { getCustomRepository } from 'typeorm'
 import { Product } from '../typeorm/entities/product'
@@ -27,6 +28,9 @@ export class CreateProductService {
 			price,
 			quantity,
 		})
+
+		const redisCache = new RedisCache()
+		await redisCache.invalidate(process.env.REDIS_PRODUCT_CACHE_KEY)
 
 		await productsRepository.save(product)
 

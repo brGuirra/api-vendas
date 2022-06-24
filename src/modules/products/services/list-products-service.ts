@@ -10,7 +10,7 @@ export class ListProductsService {
 		const redisCache = new RedisCache()
 
 		let products = await redisCache.recover<Product[]>(
-			'api-vendas-PRODUCT_LIST'
+			process.env.REDIS_PRODUCT_CACHE_KEY
 		)
 
 		if (!products) {
@@ -20,7 +20,7 @@ export class ListProductsService {
 				throw new AppError('No products found')
 			}
 
-			await redisCache.save('api-vendas-PRODUCT_LIST', products)
+			await redisCache.save(process.env.REDIS_PRODUCT_CACHE_KEY, products)
 		}
 
 		return products
