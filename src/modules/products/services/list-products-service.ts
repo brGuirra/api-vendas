@@ -7,7 +7,7 @@ import { ProductsRepository } from '../typeorm/repositories/products-repository'
 export class ListProductsService {
 	public async execute(): Promise<Product[]> {
 		const productsRepository = getCustomRepository(ProductsRepository)
-		const redisCache = new RedisCache()
+		const redisCache = RedisCache.getInstance()
 
 		let products = await redisCache.recover<Product[]>(
 			process.env.REDIS_PRODUCT_CACHE_KEY

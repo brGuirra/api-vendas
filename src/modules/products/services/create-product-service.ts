@@ -29,7 +29,7 @@ export class CreateProductService {
 			quantity,
 		})
 
-		const redisCache = new RedisCache()
+		const redisCache = RedisCache.getInstance()
 		await redisCache.invalidate(process.env.REDIS_PRODUCT_CACHE_KEY)
 
 		await productsRepository.save(product)

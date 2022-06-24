@@ -2,9 +2,18 @@ import Redis, { Redis as RedisClient } from 'ioredis'
 import { cacheConfig } from '@config/cache'
 
 export class RedisCache {
+	public static getInstance(): RedisCache {
+		if (!RedisCache.instance) {
+			RedisCache.instance = new RedisCache()
+		}
+
+		return RedisCache.instance
+	}
+
+	private static instance: RedisCache
 	private readonly client: RedisClient
 
-	constructor() {
+	private constructor() {
 		this.client = new Redis(cacheConfig.config.redis)
 	}
 

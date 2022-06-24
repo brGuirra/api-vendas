@@ -17,7 +17,7 @@ export class DeleteProductService {
 			throw new AppError(`Product ${id} not found`)
 		}
 
-		const redisCache = new RedisCache()
+		const redisCache = RedisCache.getInstance()
 		await redisCache.invalidate(process.env.REDIS_PRODUCT_CACHE_KEY)
 
 		await productsRepository.remove(product)
