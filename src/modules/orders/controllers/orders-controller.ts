@@ -25,7 +25,6 @@ export class OrdersController {
 		response: Response
 	): Promise<Response> {
 		const { customer_id, products } = request.body
-
 		const createOrderService = new CreateOrderService()
 
 		const order = await createOrderService.execute({
