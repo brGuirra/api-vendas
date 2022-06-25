@@ -2,8 +2,8 @@ import { AppError } from '@shared/errors/app-error'
 import { getCustomRepository } from 'typeorm'
 import { isAfter, addHours } from 'date-fns'
 import { hash } from 'bcryptjs'
-import { UserTokensRepository } from '../typeorm/repositories/user-tokens-repository'
-import { UsersRepository } from '../typeorm/repositories/users-repository'
+import { UserTokensRepository } from '../infra/typeorm/repositories/user-tokens-repository'
+import { UsersRepository } from '../infra/typeorm/repositories/users-repository'
 
 interface IResetPassword {
 	token: string

@@ -2,8 +2,8 @@ import path from 'node:path'
 import { EtherealMail } from '@config/mail/ethereal-mail'
 import { AppError } from '@shared/errors/app-error'
 import { getCustomRepository } from 'typeorm'
-import { UserTokensRepository } from '../typeorm/repositories/user-tokens-repository'
-import { UsersRepository } from '../typeorm/repositories/users-repository'
+import { UserTokensRepository } from '../infra/typeorm/repositories/user-tokens-repository'
+import { UsersRepository } from '../infra/typeorm/repositories/users-repository'
 
 interface IForgotPasswordEmail {
 	email: string

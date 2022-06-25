@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"prepare": "husky install",
-		"dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/http/server.ts",
+		"dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
 		"orm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
 		"orm:create": "yarn orm migration:create -n",
 		"orm:run": "yarn orm migration:run",

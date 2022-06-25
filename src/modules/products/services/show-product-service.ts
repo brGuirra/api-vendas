@@ -1,7 +1,7 @@
 import { AppError } from '@shared/errors/app-error'
 import { getCustomRepository } from 'typeorm'
-import { Product } from '../typeorm/entities/product'
-import { ProductsRepository } from '../typeorm/repositories/products-repository'
+import { Product } from '../infra/typeorm/entities/product'
+import { ProductsRepository } from '../infra/typeorm/repositories/products-repository'
 
 interface IShowProduct {
 	id: string

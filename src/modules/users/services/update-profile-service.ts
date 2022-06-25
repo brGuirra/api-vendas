@@ -1,8 +1,8 @@
 import { AppError } from '@shared/errors/app-error'
 import { compare, hash } from 'bcryptjs'
 import { getCustomRepository } from 'typeorm'
-import { User } from '../typeorm/entities/user'
-import { UsersRepository } from '../typeorm/repositories/users-repository'
+import { User } from '../infra/typeorm/entities/user'
+import { UsersRepository } from '../infra/typeorm/repositories/users-repository'
 
 interface IUpdateProfileRequest {
 	user_id: string

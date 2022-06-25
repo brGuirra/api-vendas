@@ -3,8 +3,8 @@ import { compare } from 'bcryptjs'
 import { getCustomRepository } from 'typeorm'
 import { sign } from 'jsonwebtoken'
 import { authConfig } from '@config/auth'
-import { User } from '../typeorm/entities/user'
-import { UsersRepository } from '../typeorm/repositories/users-repository'
+import { User } from '../infra/typeorm/entities/user'
+import { UsersRepository } from '../infra/typeorm/repositories/users-repository'
 
 interface ICreateSessionRequest {
 	email: string
