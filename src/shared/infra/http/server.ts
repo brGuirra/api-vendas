@@ -2,6 +2,7 @@ import 'reflect-metadata'
 import 'dotenv/config'
 import '@shared/infra/typeorm'
 import 'express-async-errors'
+import '@shared/container'
 
 import express, { NextFunction, Request, Response } from 'express'
 

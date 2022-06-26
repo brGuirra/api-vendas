@@ -1,10 +1,15 @@
 import { AppError } from '@shared/errors/app-error'
+import { inject, injectable } from 'tsyringe'
 import { ICreateCustomer } from '../domain/models/ICreateCustomer'
 import { ICustomer } from '../domain/models/ICustomer'
 import { ICustomersRepository } from '../domain/repositories/ICustomersRepository'
 
+@injectable()
 export class CreateCustomerService {
-	constructor(private readonly customersRepository: ICustomersRepository) {}
+	constructor(
+		@inject('CustomersRepository')
+		private readonly customersRepository: ICustomersRepository
+	) {}
 
 	public async execute({ name, email }: ICreateCustomer): Promise<ICustomer> {
 		const emailAlreadyExists = await this.customersRepository.findByEmail(email)
