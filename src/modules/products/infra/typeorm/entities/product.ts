@@ -1,6 +1,5 @@
 /* eslint import/no-cycle: 0 */
 
-import { OrdersProducts } from '@modules/orders/infra/typeorm/entities/orders-products'
 import {
 	Column,
 	CreateDateColumn,
@@ -10,8 +9,11 @@ import {
 	UpdateDateColumn,
 } from 'typeorm'
 
+import { OrdersProducts } from '@modules/orders/infra/typeorm/entities/orders-products'
+import { IProduct } from '@modules/products/domain/models/IProduct'
+
 @Entity('products')
-export class Product {
+export class Product implements IProduct {
 	@PrimaryGeneratedColumn('uuid')
 	id: string
 
