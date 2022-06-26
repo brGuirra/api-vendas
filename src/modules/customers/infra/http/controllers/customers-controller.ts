@@ -13,7 +13,7 @@ interface ICustomerRequest {
 
 export class CustomersController {
 	public async index(request: Request, response: Response): Promise<Response> {
-		const listCustomersService = new ListCustomersService()
+		const listCustomersService = container.resolve(ListCustomersService)
 
 		const customers = await listCustomersService.execute()
 
