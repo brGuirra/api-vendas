@@ -4,6 +4,7 @@ import { DeleteCustomerService } from '../../../services/delete-customer-service
 import { ListCustomersService } from '../../../services/list-customers-service'
 import { ShowCustomerService } from '../../../services/show-customer-service'
 import { UpdateCustomerService } from '../../../services/update-customer-service'
+import { CustomersRepository } from '../../typeorm/repositories/customers-repository'
 
 interface ICustomerRequest {
 	name: string
@@ -39,7 +40,9 @@ export class CustomersController {
 	): Promise<Response> {
 		const { name, email } = request.body
 
-		const createCustomerService = new CreateCustomerService()
+		const customersRepository = new CustomersRepository()
+
+		const createCustomerService = new CreateCustomerService(customersRepository)
 
 		const customer = await createCustomerService.execute({
 			name,
