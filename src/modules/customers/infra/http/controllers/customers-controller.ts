@@ -57,7 +57,7 @@ export class CustomersController {
 		const { name, email } = request.body
 		const { id } = request.params
 
-		const updateCustomerService = new UpdateCustomerService()
+		const updateCustomerService = container.resolve(UpdateCustomerService)
 
 		const customer = await updateCustomerService.execute({
 			id,
