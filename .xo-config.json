@@ -2,7 +2,7 @@
 	"semicolon": false,
 	"prettier": true,
 	"envs": ["es2021", "node", "jest"],
-	"ignore": ["jest.config.js", "src/@types/**"],
+	"ignore": ["jest.config.js", "src/@types/express"],
 	"webpack": false,
 	"rules": {
 		"unicorn/no-thenable": "off",
@@ -10,6 +10,13 @@
 		"n/prefer-global/process": "off",
 		"@typescript-eslint/restrict-template-expressions": "off",
 		"import/no-unassigned-import": "off",
+		"unicorn/filename-case": [
+			"error",
+			{
+				"case": "kebabCase",
+				"ignore": ["(?:^I+[A-Z]{1})\\w+(?:\\.ts$)"]
+			}
+		],
 		"import/extensions": [
 			"error",
 			"ignorePackages",
