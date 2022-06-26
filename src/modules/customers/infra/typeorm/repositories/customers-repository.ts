@@ -1,6 +1,5 @@
 import { ICreateCustomer } from '@modules/customers/domain/models/ICreateCustomer'
 import { ICustomer } from '@modules/customers/domain/models/ICustomer'
-import { IUpdateCustomer } from '@modules/customers/domain/models/IUpdateCustomer'
 import { ICustomersRepository } from '@modules/customers/domain/repositories/ICustomersRepository'
 import { getRepository, Repository } from 'typeorm'
 import { Customer } from '../entities/customer'
@@ -46,5 +45,9 @@ export class CustomersRepository implements ICustomersRepository {
 
 	public async save(customer: ICustomer): Promise<void> {
 		await this.ormRepository.save(customer)
+	}
+
+	public async remove(customer: ICustomer): Promise<void> {
+		await this.ormRepository.remove(customer)
 	}
 }

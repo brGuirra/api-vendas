@@ -11,4 +11,6 @@ export interface ICustomersRepository {
 	create(data: ICreateCustomer): Promise<ICustomer>
 
 	save(customer: ICustomer): Promise<void>
+
+	remove(customer: ICustomer): Promise<void>
 }
