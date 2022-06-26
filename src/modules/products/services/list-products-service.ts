@@ -1,20 +1,20 @@
 import { RedisCache } from '@shared/cache/redis-cache'
 import { AppError } from '@shared/errors/app-error'
-import { getCustomRepository } from 'typeorm'
-import { Product } from '../infra/typeorm/entities/product'
-import { ProductsRepository } from '../infra/typeorm/repositories/products-repository'
+import { IProduct } from '../domain/models/IProduct'
+import { IProductsRepository } from '../domain/repositories/IProductsRepository'
 
 export class ListProductsService {
-	public async execute(): Promise<Product[]> {
-		const productsRepository = getCustomRepository(ProductsRepository)
+	constructor(private readonly productsRepository: IProductsRepository) {}
+
+	public async execute(): Promise<IProduct[]> {
 		const redisCache = RedisCache.getInstance()
 
-		let products = await redisCache.recover<Product[]>(
+		let products = await redisCache.recover<IProduct[]>(
 			process.env.REDIS_PRODUCT_CACHE_KEY
 		)
 
 		if (!products) {
-			products = await productsRepository.find()
+			products = await this.productsRepository.find()
 
 			if (products.length === 0) {
 				throw new AppError('No products found')
