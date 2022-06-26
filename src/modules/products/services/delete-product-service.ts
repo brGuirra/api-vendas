@@ -1,17 +1,17 @@
 import { RedisCache } from '@shared/cache/redis-cache'
 import { AppError } from '@shared/errors/app-error'
-import { getCustomRepository } from 'typeorm'
-import { ProductsRepository } from '../infra/typeorm/repositories/products-repository'
+import { inject, injectable } from 'tsyringe'
+import { IProductsRepository } from '../domain/repositories/IProductsRepository'
 
-interface IDeleteProduct {
-	id: string
-}
-
+@injectable()
 export class DeleteProductService {
-	public async execute({ id }: IDeleteProduct): Promise<void> {
-		const productsRepository = getCustomRepository(ProductsRepository)
+	constructor(
+		@inject('ProductsRepository')
+		private readonly productsRepository: IProductsRepository
+	) {}
 
-		const product = await productsRepository.findOne(id)
+	public async execute(id: string): Promise<void> {
+		const product = await this.productsRepository.findById(id)
 
 		if (!product) {
 			throw new AppError(`Product ${id} not found`)
@@ -20,6 +20,6 @@ export class DeleteProductService {
 		const redisCache = RedisCache.getInstance()
 		await redisCache.invalidate(process.env.REDIS_PRODUCT_CACHE_KEY)
 
-		await productsRepository.remove(product)
+		await this.productsRepository.remove(product)
 	}
 }

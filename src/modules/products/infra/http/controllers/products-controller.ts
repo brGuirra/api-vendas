@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { container } from 'tsyringe'
 import { CreateProductService } from '../../../services/create-product-service'
 import { DeleteProductService } from '../../../services/delete-product-service'
 import { ListProductsService } from '../../../services/list-products-service'
@@ -13,7 +14,7 @@ interface IProductRequest {
 
 export class ProductsController {
 	public async index(request: Request, response: Response): Promise<Response> {
-		const listProductsService = new ListProductsService()
+		const listProductsService = container.resolve(ListProductsService)
 
 		const products = await listProductsService.execute()
 
@@ -23,24 +24,24 @@ export class ProductsController {
 	public async show(request: Request, response: Response): Promise<Response> {
 		const { id } = request.params
 
-		const showProductService = new ShowProductService()
+		const showProductService = container.resolve(ShowProductService)
 
-		const product = await showProductService.execute({ id })
+		const product = await showProductService.execute(id)
 
 		return response.json(product)
 	}
 
 	public async create(
 		request: Request<
-			Record<string, unknown>,
-			Record<string, unknown>,
+			Record<string, string>,
+			Record<string, any>,
 			IProductRequest
 		>,
 		response: Response
 	): Promise<Response> {
 		const { name, price, quantity } = request.body
 
-		const createProductService = new CreateProductService()
+		const createProductService = container.resolve(CreateProductService)
 
 		const product = await createProductService.execute({
 			name,
@@ -52,13 +53,17 @@ export class ProductsController {
 	}
 
 	public async update(
-		request: Request<{ id: string }, Record<string, unknown>, IProductRequest>,
+		request: Request<
+			Record<string, string>,
+			Record<string, any>,
+			IProductRequest
+		>,
 		response: Response
 	): Promise<Response> {
 		const { name, price, quantity } = request.body
 		const { id } = request.params
 
-		const updateProductService = new UpdateProductService()
+		const updateProductService = container.resolve(UpdateProductService)
 
 		const product = await updateProductService.execute({
 			id,
@@ -71,14 +76,14 @@ export class ProductsController {
 	}
 
 	public async delete(
-		request: Request<{ id: string }>,
+		request: Request<Record<string, string>>,
 		response: Response
 	): Promise<Response> {
 		const { id } = request.params
 
-		const deleteProductService = new DeleteProductService()
+		const deleteProductService = container.resolve(DeleteProductService)
 
-		await deleteProductService.execute({ id })
+		await deleteProductService.execute(id)
 
 		return response.json({ message: `Product ${id} deleted` })
 	}

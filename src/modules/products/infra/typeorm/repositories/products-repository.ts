@@ -1,26 +1,59 @@
-import { EntityRepository, In, Repository } from 'typeorm'
-
+import { getRepository, In, Repository } from 'typeorm'
+import { IProduct } from '@modules/products/domain/models/IProduct'
+import { IProductsRepository } from '@modules/products/domain/repositories/IProductsRepository'
+import { ICreateProduct } from '@modules/products/domain/models/ICreateProduct'
 import { Product } from '../entities/product'
 
-interface IFindProducts {
-	id: string
-}
+export class ProductsRepository implements IProductsRepository {
+	private readonly ormRepository: Repository<Product>
 
-@EntityRepository(Product)
-export class ProductsRepository extends Repository<Product> {
-	public async findByName(name: string): Promise<Product> {
-		return this.findOne({
-			where: { name },
-		})
+	constructor() {
+		this.ormRepository = getRepository(Product)
 	}
 
-	public async findAllByIds(products: IFindProducts[]): Promise<Product[]> {
-		const productsIds = products.map(product => product.id)
+	public async find(): Promise<IProduct[]> {
+		const products = await this.ormRepository.find()
 
-		return this.find({
+		return products
+	}
+
+	public async findByName(name: string): Promise<IProduct> {
+		const product = await this.ormRepository.findOne({
+			where: { name },
+		})
+
+		return product
+	}
+
+	public async findById(id: string): Promise<IProduct> {
+		const product = await this.ormRepository.findOne(id)
+
+		return product
+	}
+
+	public async findAllByIds(products_ids: string[]): Promise<IProduct[]> {
+		const products = await this.ormRepository.find({
 			where: {
-				id: In(productsIds),
+				id: In(products_ids),
 			},
 		})
+
+		return products
+	}
+
+	public async create(data: ICreateProduct): Promise<IProduct> {
+		const product = this.ormRepository.create(data)
+
+		await this.ormRepository.save(product)
+
+		return product
+	}
+
+	public async remove(product: IProduct): Promise<void> {
+		await this.ormRepository.remove(product)
+	}
+
+	public async save(product: IProduct): Promise<void> {
+		await this.ormRepository.save(product)
 	}
 }
