@@ -1,11 +1,16 @@
 import { RedisCache } from '@shared/cache/redis-cache'
 import { AppError } from '@shared/errors/app-error'
+import { inject, injectable } from 'tsyringe'
 import { ICreateProduct } from '../domain/models/ICreateProduct'
 import { IProduct } from '../domain/models/IProduct'
 import { IProductsRepository } from '../domain/repositories/IProductsRepository'
 
+@injectable()
 export class CreateProductService {
-	constructor(private readonly productsRepository: IProductsRepository) {}
+	constructor(
+		@inject('ProductsRepository')
+		private readonly productsRepository: IProductsRepository
+	) {}
 
 	public async execute({
 		name,
