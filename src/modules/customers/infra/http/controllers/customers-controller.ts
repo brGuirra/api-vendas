@@ -74,7 +74,7 @@ export class CustomersController {
 	): Promise<Response> {
 		const { id } = request.params
 
-		const deleteCustomerService = new DeleteCustomerService()
+		const deleteCustomerService = container.resolve(DeleteCustomerService)
 
 		await deleteCustomerService.execute(id)
 
