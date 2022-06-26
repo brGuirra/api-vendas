@@ -1,10 +1,10 @@
 import { AppError } from '@shared/errors/app-error'
 import { getCustomRepository } from 'typeorm'
-import { Customer } from '../infra/typeorm/entities/customer'
+import { ICustomer } from '../domain/models/ICustomer'
 import { CustomersRepository } from '../infra/typeorm/repositories/customers-repository'
 
 export class ListCustomersService {
-	public async execute(): Promise<Customer[]> {
+	public async execute(): Promise<ICustomer[]> {
 		const customersRepository = getCustomRepository(CustomersRepository)
 
 		const users = await customersRepository.find()

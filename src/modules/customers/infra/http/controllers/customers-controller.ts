@@ -24,7 +24,7 @@ export class CustomersController {
 
 		const showCustomerService = new ShowCustomerService()
 
-		const customer = await showCustomerService.execute({ id })
+		const customer = await showCustomerService.execute(id)
 
 		return response.json(customer)
 	}
@@ -75,7 +75,7 @@ export class CustomersController {
 
 		const deleteCustomerService = new DeleteCustomerService()
 
-		await deleteCustomerService.execute({ id })
+		await deleteCustomerService.execute(id)
 
 		return response.json({ message: `Customer ${id} deleted` })
 	}

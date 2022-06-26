@@ -1,20 +1,15 @@
 import { AppError } from '@shared/errors/app-error'
 import { getCustomRepository } from 'typeorm'
-import { Customer } from '../infra/typeorm/entities/customer'
+import { ICustomer } from '../domain/models/ICustomer'
+import { IUpdateCustomer } from '../domain/models/IUpdateCustomer'
 import { CustomersRepository } from '../infra/typeorm/repositories/customers-repository'
-
-interface IUpdateCustomerRequest {
-	id: string
-	name: string
-	email: string
-}
 
 export class UpdateCustomerService {
 	public async execute({
 		id,
 		name,
 		email,
-	}: IUpdateCustomerRequest): Promise<Customer> {
+	}: IUpdateCustomer): Promise<ICustomer> {
 		const customersRepository = getCustomRepository(CustomersRepository)
 
 		const customer = await customersRepository.findById(id)
