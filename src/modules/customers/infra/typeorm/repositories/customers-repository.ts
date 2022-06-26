@@ -11,6 +11,12 @@ export class CustomersRepository implements ICustomersRepository {
 		this.ormRepository = getRepository(Customer)
 	}
 
+	public async find(): Promise<ICustomer[]> {
+		const customers = await this.ormRepository.find()
+
+		return customers
+	}
+
 	public async findByName(name: string): Promise<ICustomer> {
 		const customer = await this.ormRepository.findOne({
 			where: { name },

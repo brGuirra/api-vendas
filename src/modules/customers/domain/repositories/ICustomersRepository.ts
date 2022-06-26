@@ -2,6 +2,8 @@ import { ICreateCustomer } from '../models/ICreateCustomer'
 import { ICustomer } from '../models/ICustomer'
 
 export interface ICustomersRepository {
+	find(): Promise<ICustomer[]>
+
 	findByName(name: string): Promise<ICustomer>
 
 	findById(id: string): Promise<ICustomer>
