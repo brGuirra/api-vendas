@@ -12,20 +12,21 @@ export class OrdersRepository implements IOrdersRepository {
 	}
 
 	public async findById(id: string): Promise<IOrder> {
-		return this.ormRepository.findOne(id, {
+		const order = await this.ormRepository.findOne(id, {
 			relations: ['order_products', 'customer'],
 		})
+
+		return order
 	}
 
-	public async createOrder({
-		customer,
-		products,
-	}: ICreateOrder): Promise<IOrder> {
+	public async create({ customer, products }: ICreateOrder): Promise<IOrder> {
 		const order = this.ormRepository.create({
 			customer,
 			order_products: products,
 		})
 
-		return this.ormRepository.save(order)
+		await this.ormRepository.save(order)
+
+		return order
 	}
 }
