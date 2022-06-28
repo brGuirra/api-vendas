@@ -1,5 +1,6 @@
 import { ICreateProduct } from '../models/ICreateProduct'
 import { IProduct } from '../models/IProduct'
+import { IUpdateStockProduct } from '../models/IUpdateStockProduct'
 
 export interface IProductsRepository {
 	find(): Promise<IProduct[]>
@@ -15,4 +16,6 @@ export interface IProductsRepository {
 	remove(product: IProduct): Promise<void>
 
 	save(product: IProduct): Promise<void>
+
+	updateStock(products: IUpdateStockProduct[]): Promise<void>
 }
