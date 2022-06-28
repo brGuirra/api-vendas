@@ -9,9 +9,9 @@ export class OrdersController {
 	public async show(request: Request, response: Response): Promise<Response> {
 		const { id } = request.params
 
-		const showOrderService = new ShowOrderService()
+		const showOrderService = container.resolve(ShowOrderService)
 
-		const order = await showOrderService.execute({ id })
+		const order = await showOrderService.execute(id)
 
 		return response.json(order)
 	}
