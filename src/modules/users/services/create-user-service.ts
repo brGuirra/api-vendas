@@ -1,19 +1,14 @@
 import { AppError } from '@shared/errors/app-error'
 import { hash } from 'bcryptjs'
-import { getCustomRepository } from 'typeorm'
+import { ICreateUser } from '../domain/models/ICreateUser'
+import { IUsersRepository } from '../domain/repositories/IUsersRepository'
 import { User } from '../infra/typeorm/entities/user'
-import { UsersRepository } from '../infra/typeorm/repositories/users-repository'
-
-interface ICreateUser {
-	name: string
-	email: string
-	password: string
-}
 
 export class CreateUserService {
+	constructor(private readonly usersRepository: IUsersRepository) {}
+
 	public async execute({ name, email, password }: ICreateUser): Promise<User> {
-		const usersRepository = getCustomRepository(UsersRepository)
-		const emailAlreadyExists = await usersRepository.findByEmail(email)
+		const emailAlreadyExists = await this.usersRepository.findByEmail(email)
 
 		if (emailAlreadyExists) {
 			throw new AppError(`The email is already registered`)
@@ -21,13 +16,11 @@ export class CreateUserService {
 
 		const hashedPassword = await hash(password, 8)
 
-		const user = usersRepository.create({
+		const user = await this.usersRepository.create({
 			name,
 			email,
 			password: hashedPassword,
 		})
-
-		await usersRepository.save(user)
 
 		return user
 	}
