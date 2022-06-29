@@ -1,13 +1,12 @@
 import { AppError } from '@shared/errors/app-error'
-import { getCustomRepository } from 'typeorm'
-import { User } from '../infra/typeorm/entities/user'
+import { IUser } from '../domain/models/IUser'
 import { UsersRepository } from '../infra/typeorm/repositories/users-repository'
 
 export class ListUsersService {
-	public async execute(): Promise<User[]> {
-		const usersRepository = getCustomRepository(UsersRepository)
+	constructor(private readonly usersRepository: UsersRepository) {}
 
-		const users = await usersRepository.find()
+	public async execute(): Promise<IUser[]> {
+		const users = await this.usersRepository.find()
 
 		if (users.length === 0) {
 			throw new AppError('No users found')

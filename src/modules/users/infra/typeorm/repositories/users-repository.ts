@@ -11,6 +11,12 @@ export class UsersRepository implements IUsersRepository {
 		this.ormRepository = getRepository(User)
 	}
 
+	async find(): Promise<IUser[]> {
+		const users = await this.ormRepository.find()
+
+		return users
+	}
+
 	public async findByName(name: string): Promise<IUser> {
 		const user = await this.ormRepository.findOne({
 			where: { name },
