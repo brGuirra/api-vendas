@@ -1,5 +1,7 @@
-import { IResetPasswordRequest } from '@modules/users/domain/models/IResetPasswordRequest'
 import { Request, Response } from 'express'
+import { container } from 'tsyringe'
+
+import { IResetPasswordRequest } from '@modules/users/domain/models/IResetPasswordRequest'
 import { ResetPasswordService } from '../../../services/reset-password-service'
 
 export class ResetPasswordController {
@@ -12,7 +14,7 @@ export class ResetPasswordController {
 		response: Response
 	): Promise<Response> {
 		const { token, password } = request.body
-		const resetPasswordService = new ResetPasswordService()
+		const resetPasswordService = container.resolve(ResetPasswordService)
 
 		await resetPasswordService.execute({ token, password })
 

@@ -1,4 +1,5 @@
 import { isAfter, addHours } from 'date-fns'
+import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@shared/errors/app-error'
 import { hash } from 'bcryptjs'
@@ -6,9 +7,12 @@ import { IResetPasswordRequest } from '../domain/models/IResetPasswordRequest'
 import { IUsersRepository } from '../domain/repositories/IUsersRepository'
 import { IUserTokensRepository } from '../domain/models/IUserTokensRepository'
 
+@injectable()
 export class ResetPasswordService {
 	constructor(
+		@inject('UsersRepository')
 		private readonly usersRepository: IUsersRepository,
+		@inject('UserTokensRepository')
 		private readonly userTokensRepository: IUserTokensRepository
 	) {}
 
