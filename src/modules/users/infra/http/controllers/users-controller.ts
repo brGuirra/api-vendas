@@ -1,14 +1,10 @@
 import { Request, Response } from 'express'
 import { instanceToInstance } from 'class-transformer'
+import { container } from 'tsyringe'
 
+import { ICreateUser } from '@modules/users/domain/models/ICreateUser'
 import { CreateUserService } from '../../../services/create-user-service'
 import { ListUsersService } from '../../../services/list-users-service'
-
-interface IUserRequest {
-	name: string
-	email: string
-	password: string
-}
 
 export class UsersController {
 	public async index(request: Request, response: Response): Promise<Response> {
@@ -22,12 +18,12 @@ export class UsersController {
 		request: Request<
 			Record<string, unknown>,
 			Record<string, unknown>,
-			IUserRequest
+			ICreateUser
 		>,
 		response: Response
 	): Promise<Response> {
 		const { name, email, password } = request.body
-		const createUserService = new CreateUserService()
+		const createUserService = container.resolve(CreateUserService)
 		const user = await createUserService.execute({ name, email, password })
 
 		return response.json(instanceToInstance(user))

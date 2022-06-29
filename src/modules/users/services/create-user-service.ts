@@ -1,11 +1,16 @@
 import { AppError } from '@shared/errors/app-error'
 import { hash } from 'bcryptjs'
+import { inject, injectable } from 'tsyringe'
 import { ICreateUser } from '../domain/models/ICreateUser'
 import { IUsersRepository } from '../domain/repositories/IUsersRepository'
 import { User } from '../infra/typeorm/entities/user'
 
+@injectable()
 export class CreateUserService {
-	constructor(private readonly usersRepository: IUsersRepository) {}
+	constructor(
+		@inject('UsersRepository')
+		private readonly usersRepository: IUsersRepository
+	) {}
 
 	public async execute({ name, email, password }: ICreateUser): Promise<User> {
 		const emailAlreadyExists = await this.usersRepository.findByEmail(email)
