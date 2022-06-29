@@ -1,17 +1,17 @@
+import { container } from 'tsyringe'
 import { Request, Response } from 'express'
-import {
-	CreateOrderService,
-	ICreateOrder,
-} from '../../../services/create-order-service'
+
+import { ICreateOrderRequest } from '@modules/orders/domain/models/ICreateOrderRequest'
+import { CreateOrderService } from '../../../services/create-order-service'
 import { ShowOrderService } from '../../../services/show-order-service'
 
 export class OrdersController {
 	public async show(request: Request, response: Response): Promise<Response> {
 		const { id } = request.params
 
-		const showOrderService = new ShowOrderService()
+		const showOrderService = container.resolve(ShowOrderService)
 
-		const order = await showOrderService.execute({ id })
+		const order = await showOrderService.execute(id)
 
 		return response.json(order)
 	}
@@ -20,12 +20,12 @@ export class OrdersController {
 		request: Request<
 			Record<string, unknown>,
 			Record<string, unknown>,
-			ICreateOrder
+			ICreateOrderRequest
 		>,
 		response: Response
 	): Promise<Response> {
 		const { customer_id, products } = request.body
-		const createOrderService = new CreateOrderService()
+		const createOrderService = container.resolve(CreateOrderService)
 
 		const order = await createOrderService.execute({
 			customer_id,

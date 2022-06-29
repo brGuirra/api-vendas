@@ -2,6 +2,7 @@ import { getRepository, In, Repository } from 'typeorm'
 import { IProduct } from '@modules/products/domain/models/IProduct'
 import { IProductsRepository } from '@modules/products/domain/repositories/IProductsRepository'
 import { ICreateProduct } from '@modules/products/domain/models/ICreateProduct'
+import { IUpdateStockProduct } from '@modules/products/domain/models/IUpdateStockProduct'
 import { Product } from '../entities/product'
 
 export class ProductsRepository implements IProductsRepository {
@@ -55,5 +56,9 @@ export class ProductsRepository implements IProductsRepository {
 
 	public async save(product: IProduct): Promise<void> {
 		await this.ormRepository.save(product)
+	}
+
+	public async updateStock(products: IUpdateStockProduct[]): Promise<void> {
+		await this.ormRepository.save(products)
 	}
 }
