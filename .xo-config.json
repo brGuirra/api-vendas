@@ -6,6 +6,7 @@
 	"webpack": false,
 	"rules": {
 		"unicorn/no-thenable": "off",
+		"unicorn/prefer-module": "off",
 		"n/file-extension-in-import": "off",
 		"n/prefer-global/process": "off",
 		"@typescript-eslint/restrict-template-expressions": "off",

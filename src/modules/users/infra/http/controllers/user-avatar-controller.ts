@@ -1,11 +1,12 @@
 import { Request, Response } from 'express'
 import { instanceToInstance } from 'class-transformer'
+import { container } from 'tsyringe'
 
 import { UpdateUserAvatarService } from '../../../services/update-user-avatar-service'
 
 export class UserAvatarController {
 	public async update(request: Request, response: Response): Promise<Response> {
-		const updateUserAvatarService = new UpdateUserAvatarService()
+		const updateUserAvatarService = container.resolve(UpdateUserAvatarService)
 
 		const user = await updateUserAvatarService.execute({
 			userId: request.user.id,

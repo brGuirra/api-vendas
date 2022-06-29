@@ -1,24 +1,25 @@
 import path from 'node:path'
 import fs from 'node:fs/promises'
-import { AppError } from '@shared/errors/app-error'
-import { getCustomRepository } from 'typeorm'
+import { inject, injectable } from 'tsyringe'
+
 import { uploadConfig } from '@config/upload'
-import { User } from '../infra/typeorm/entities/user'
-import { UsersRepository } from '../infra/typeorm/repositories/users-repository'
+import { AppError } from '@shared/errors/app-error'
+import { IUpdateUserAvatar } from '../domain/models/IUpdateUserAvatar'
+import { IUsersRepository } from '../domain/repositories/IUsersRepository'
+import { IUser } from '../domain/models/IUser'
 
-interface IUpdateUserAvatar {
-	userId: string
-	avatarFileName: string
-}
-
+@injectable()
 export class UpdateUserAvatarService {
+	constructor(
+		@inject('UsersRepository')
+		private readonly usersRepository: IUsersRepository
+	) {}
+
 	public async execute({
 		avatarFileName,
 		userId,
-	}: IUpdateUserAvatar): Promise<User> {
-		const usersRepository = getCustomRepository(UsersRepository)
-
-		const user = await usersRepository.findById(userId)
+	}: IUpdateUserAvatar): Promise<IUser> {
+		const user = await this.usersRepository.findById(userId)
 
 		if (!user) {
 			throw new AppError('User not found')
@@ -35,7 +36,7 @@ export class UpdateUserAvatarService {
 
 		user.avatar = avatarFileName
 
-		await usersRepository.save(user)
+		await this.usersRepository.save(user)
 
 		return user
 	}
