@@ -1,13 +1,17 @@
 import path from 'node:path'
+import { inject, injectable } from 'tsyringe'
 
 import { EtherealMail } from '@config/mail/ethereal-mail'
 import { AppError } from '@shared/errors/app-error'
 import { IUsersRepository } from '../domain/repositories/IUsersRepository'
 import { IUserTokensRepository } from '../domain/models/IUserTokensRepository'
 
+@injectable()
 export class SendForgotPasswordEmailService {
 	constructor(
+		@inject('UsersRepository')
 		private readonly usersRepository: IUsersRepository,
+		@inject('UserTokensRepository')
 		private readonly userTokensRepository: IUserTokensRepository
 	) {}
 
