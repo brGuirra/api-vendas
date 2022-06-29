@@ -1,10 +1,6 @@
+import { IResetPasswordRequest } from '@modules/users/domain/models/IResetPasswordRequest'
 import { Request, Response } from 'express'
 import { ResetPasswordService } from '../../../services/reset-password-service'
-
-interface IResetPasswordRequest {
-	token: string
-	password: string
-}
 
 export class ResetPasswordController {
 	async create(
