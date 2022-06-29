@@ -6,7 +6,7 @@ import { authConfig } from '@config/auth'
 import { AppError } from '@shared/errors/app-error'
 import { ICreateSessionRequest } from '../domain/models/ICreateSessionRequest'
 import { IUsersRepository } from '../domain/repositories/IUsersRepository'
-import { ISession } from './ISession'
+import { ISession } from '../domain/models/ISession'
 
 @injectable()
 export class CreateSessionsService {
