@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { instanceToInstance } from 'class-transformer'
+import { container } from 'tsyringe'
 
 import { ShowProfileService } from '../../../services/show-profile-service'
 import { UpdateProfileService } from '../../../services/update-profile-service'
@@ -13,9 +14,9 @@ interface IUserRequest {
 
 export class ProfileController {
 	public async show(request: Request, response: Response): Promise<Response> {
-		const showProfileService = new ShowProfileService()
+		const showProfileService = container.resolve(ShowProfileService)
 		const user_id = request.user.id
-		const user = await showProfileService.execute({ user_id })
+		const user = await showProfileService.execute(user_id)
 
 		return response.json(instanceToInstance(user))
 	}
