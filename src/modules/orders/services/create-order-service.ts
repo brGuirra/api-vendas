@@ -12,9 +12,9 @@ export class CreateOrderService {
 	constructor(
 		@inject('OrdersRepository')
 		private readonly ordersRepository: IOrdersRepository,
-		@inject('OrdersRepository')
+		@inject('CustomersRepository')
 		private readonly customersRepository: ICustomersRepository,
-		@inject('OrdersRepository')
+		@inject('ProductsRepository')
 		private readonly productsRepository: IProductsRepository
 	) {}
 
