@@ -1,34 +1,26 @@
 import { AppError } from '@shared/errors/app-error'
 import { compare, hash } from 'bcryptjs'
-import { getCustomRepository } from 'typeorm'
-import { User } from '../infra/typeorm/entities/user'
-import { UsersRepository } from '../infra/typeorm/repositories/users-repository'
-
-interface IUpdateProfileRequest {
-	user_id: string
-	name: string
-	email: string
-	password?: string
-	old_password?: string
-}
+import { IUpdateProfile } from '../domain/models/IUpdateProfile'
+import { IUser } from '../domain/models/IUser'
+import { IUsersRepository } from '../domain/repositories/IUsersRepository'
 
 export class UpdateProfileService {
+	constructor(private readonly usersRepository: IUsersRepository) {}
+
 	public async execute({
 		user_id,
 		name,
 		email,
 		password,
 		old_password,
-	}: IUpdateProfileRequest): Promise<User> {
-		const usersRepository = getCustomRepository(UsersRepository)
-
-		const user = await usersRepository.findById(user_id)
+	}: IUpdateProfile): Promise<IUser> {
+		const user = await this.usersRepository.findById(user_id)
 
 		if (!user) {
 			throw new AppError('User not found')
 		}
 
-		const userUpdateEmail = await usersRepository.findByEmail(email)
+		const userUpdateEmail = await this.usersRepository.findByEmail(email)
 
 		if (userUpdateEmail && userUpdateEmail.id !== user_id) {
 			throw new AppError('Email already in use')
@@ -53,7 +45,7 @@ export class UpdateProfileService {
 		user.name = name
 		user.email = email
 
-		await usersRepository.save(user)
+		await this.usersRepository.save(user)
 
 		return user
 	}

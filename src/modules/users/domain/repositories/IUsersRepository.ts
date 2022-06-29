@@ -11,4 +11,6 @@ export interface IUsersRepository {
 	findByEmail(email: string): Promise<IUser>
 
 	create(data: ICreateUser): Promise<IUser>
+
+	save(user: IUser): Promise<void>
 }
