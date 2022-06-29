@@ -1,5 +1,6 @@
 import path from 'node:path'
 import fs from 'node:fs/promises'
+import { inject, injectable } from 'tsyringe'
 
 import { uploadConfig } from '@config/upload'
 import { AppError } from '@shared/errors/app-error'
@@ -7,8 +8,12 @@ import { IUpdateUserAvatar } from '../domain/models/IUpdateUserAvatar'
 import { IUsersRepository } from '../domain/repositories/IUsersRepository'
 import { IUser } from '../domain/models/IUser'
 
+@injectable()
 export class UpdateUserAvatarService {
-	constructor(private readonly usersRepository: IUsersRepository) {}
+	constructor(
+		@inject('UsersRepository')
+		private readonly usersRepository: IUsersRepository
+	) {}
 
 	public async execute({
 		avatarFileName,
