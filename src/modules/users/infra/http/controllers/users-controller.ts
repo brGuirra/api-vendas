@@ -8,7 +8,7 @@ import { ListUsersService } from '../../../services/list-users-service'
 
 export class UsersController {
 	public async index(request: Request, response: Response): Promise<Response> {
-		const listUsersService = new ListUsersService()
+		const listUsersService = container.resolve(ListUsersService)
 		const users = await listUsersService.execute()
 
 		return response.json(instanceToInstance(users))

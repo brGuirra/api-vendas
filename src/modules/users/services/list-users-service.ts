@@ -1,9 +1,14 @@
 import { AppError } from '@shared/errors/app-error'
+import { inject, injectable } from 'tsyringe'
 import { IUser } from '../domain/models/IUser'
-import { UsersRepository } from '../infra/typeorm/repositories/users-repository'
+import { IUsersRepository } from '../domain/repositories/IUsersRepository'
 
+@injectable()
 export class ListUsersService {
-	constructor(private readonly usersRepository: UsersRepository) {}
+	constructor(
+		@inject('UsersRepository')
+		private readonly usersRepository: IUsersRepository
+	) {}
 
 	public async execute(): Promise<IUser[]> {
 		const users = await this.usersRepository.find()
